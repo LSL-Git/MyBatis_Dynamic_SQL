@@ -16,7 +16,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userRole" column="userRole"/>
 		<result property="userRoleName" column="roleName"/>
 	</resultMap>
-	<!-- 查询用户列表 动态条件查询-if -->
+	
+	<!-- 查询用户列表 动态条件查询-if-where-->
+	<select id="getUserList" resultMap="userList">
+		select u.*, r.roleName from smbms_user u, smbms_role r
+		<where>
+			u.userRole = r.id
+			<if test="userName != null and userName != ''" >
+				and u.userName like CONCAT ('%',#{userName},'%')
+			</if>
+			<if test="userRole != null">
+				and r.userRole = #{userRole}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询用户列表 动态条件查询-if 
 	<select id="getUserList" resultMap="userList">
 		select u.*, r.roleName from smbms_user u, smbms_role r
 		where u.userRole = r.id
@@ -27,4 +42,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and u.userName like CONCAT ('%',#{userName},'%')
 		</if>
 	</select>
+	-->
+	
+	<!-- 
+		  简单改造getUserList：
+		  若 只传入一个参数：userRole，而不传入参数：userName的时候，控制台报sql异常错误
+		  查看日志中sql语句：select * from smbms_user where and userRole = ? 
+		  若 不传入任何参数：控制台报sql异常错误
+		  查看日志中sql语句：select * from smbms_user where
+		 
+		<select id="getUserList" resultType="User">
+			select * from smbms_user where
+				<if test="userName != null and userName != ''">
+					userName like CONCAT ('%',#{userName},'%') 
+				</if>
+				<if test="userRole != null">
+					and userRole = #{userRole}
+				</if>
+		</select>
+		  
+		  演示如何灵活处理where and|or :
+	-->
 </mapper>
