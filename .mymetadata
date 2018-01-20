@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="MyBatis_Dynamic_SQL"
+  id="myeclipse.1516432817674"
+  context-root="/MyBatis_Dynamic_SQL"
+  j2ee-spec="5.0"
+  archive="MyBatis_Dynamic_SQL.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
