@@ -30,6 +30,29 @@ public class UserMapperTest {
 	}
 	
 	@Test
+	public void testGetUserByRoleId_foreach_array() {
+		logger.debug("testGetUserByRoleId_foreach_array !===================");
+		SqlSession sqlSession = null;
+		List<User> userList = new ArrayList<User>();
+		Integer[] roleIds = {2,1};
+		try {
+			sqlSession = MyBatisUtils.createSqlSession();
+			userList = sqlSession.getMapper(UserMapper.class).getUserByRoleId_foreach_array(roleIds);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			MyBatisUtils.closeSqlSession(sqlSession);
+		}
+		logger.debug("userList.size ----> " + userList.size());
+		for(User user : userList){
+			logger.debug("user ===========> id: " + user.getId()+
+						", userCode: " + user.getUserCode() + 
+						", userName: " + user.getUserName() +
+						", userRole: " + user.getUserRole());
+		}
+	}
+	
+	@Test
 	public void testModify(){
 		logger.debug("testModify !===================");
 		SqlSession sqlSession = null;

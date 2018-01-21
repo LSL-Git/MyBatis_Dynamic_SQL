@@ -102,9 +102,28 @@
 	</trim>
 </update>
 ```
+6、 动态条件查找数据-foreach-array
+```
+<!-- 根据用户角色列表，获取该角色列表下用户列表信息-foreach_array -->	
+<select id="getUserByRoleId_foreach_array" resultMap="userMapByRole">
+	select * from smbms_user where userRole in
+	<!-- 
+		foreach：迭代一个集合，通常用于in查询
+		collection：array|list|map-key（必须指定）
+		item:迭代子项，与#{roleIds}对应，
+		open：句子组合开始符
+		separator：句子组合分隔符
+		close：句子组合结束符
+	 -->
+	<foreach collection="array" item="roleIds" open="(" separator="," close=")">
+		#{roleIds}
+	</foreach>
+</select>
+```
 
    
-
+   
+    
 @Author: 瞌睡虫   
 @mybatis-3.2.2   
 @Database: mysql 5.7.15   

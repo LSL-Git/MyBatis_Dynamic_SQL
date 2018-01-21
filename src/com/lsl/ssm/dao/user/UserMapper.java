@@ -7,6 +7,15 @@ import org.apache.ibatis.annotations.Param;
 import com.lsl.ssm.pojo.User;
 
 public interface UserMapper {
+	
+	
+	/**
+	 * 根据用户角色列表，获取该角色列表下用户列表信息-foreach_array
+	 * @param roleIds
+	 * @return
+	 */
+	public List<User> getUserByRoleId_foreach_array(Integer[] roleIds);
+	
 	/**
 	 * 修改用户信息
 	 * @param user
