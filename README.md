@@ -78,6 +78,30 @@
 	</trim>
 </select>
 ```
+5、 动态条件修改数据-if-trim-prefix-suffixOverrides-suffix
+```
+<!-- 修改用户信息-if-trim-suffix-suffixOverrides -->
+<update id="modify" parameterType="User">
+	update smbms_user
+	<trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+		<!-- prefix:前缀，在将下面的句子连接前添加，这里添加为’set‘
+			suffixOverrides：后缀覆盖，即将下面的句子连接后的最后一个’，‘,替换成’where id=#{id}‘
+			suffix：要替换成的句子
+			这里连接的句子为:update smbms_user set userCode = ?,...,modifyDate = ? where id = ?
+		-->
+		<if test="userCode != null">userCode=#{userCode},</if>
+		<if test="userName != null">userName=#{userName},</if>
+		<if test="userPassword != null">userPassword=#{userPassword},</if>
+		<if test="gender != null">gender=#{gender},</if>
+		<if test="birthday != null">birthday=#{birthday},</if>
+		<if test="phone != null">phone=#{phone},</if>
+		<if test="address != null">address=#{address},</if>
+		<if test="userRole != null">userRole=#{userRole},</if>
+		<if test="modifyBy != null">modifyBy=#{modifyBy},</if>
+		<if test="modifyDate != null">modifyDate=#{modifyDate},</if>
+	</trim>
+</update>
+```
 
    
 

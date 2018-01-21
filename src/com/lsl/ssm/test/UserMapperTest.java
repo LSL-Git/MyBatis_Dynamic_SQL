@@ -38,7 +38,7 @@ public class UserMapperTest {
 			User user = new User();
 			user.setId(19);
 			user.setUserCode("testmodify");
-			user.setUserName("测试用户修改02");
+			user.setUserName("测试用户修改03");
 			user.setUserPassword("1234567");
 			Date birthday = new SimpleDateFormat("yyyy-MM-dd").parse("1980-10-10");
 			user.setBirthday(birthday);
