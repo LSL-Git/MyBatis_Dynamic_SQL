@@ -181,6 +181,29 @@
 	</trim>		
 </select>
 ```
+10、动态条件查询用户列表-分页查询
+```
+<!-- 查询用户信息（分页显示） -->
+<select id="getUserListByPaging" resultType="User">
+	select u.*, r.roleName from smbms_user u, smbms_role r
+	where u.userRole = r.id
+	<if test="userRole != null">
+		and u.userRole = #{userRole}
+	</if>
+	<if test="userName != null and userName != ''">
+		and u.userName like CONCAT ('%',#{userName},'%')
+	</if>
+	<!-- 
+		limit x,y
+		y:显示条数，即每页显示条数
+		x:显示起始位置
+		如:limit 0,5 则从第0条开始显示接下来5条记录
+		  limit 5,5 则从第5条开始，显示接下来的5条记录
+		  ...
+	 -->
+	order by u.creationDate DESC limit #{from}, #{pageSize}
+</select>
+```
    
    
     

@@ -9,6 +9,18 @@ import org.apache.ibatis.annotations.Param;
 import com.lsl.ssm.pojo.User;
 
 public interface UserMapper {
+	/**
+	 * 查询用户信息（分页显示）
+	 * @param userName
+	 * @param roleId
+	 * @param currentPageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public List<User> getUserListByPaging(@Param("userName")String userName,
+			@Param("userRole")Integer roleId,
+			@Param("from")Integer currentPageNo,
+			@Param("pageSize")Integer pageSize);
 
 	/**
 	 * 查询用户信息（choose）

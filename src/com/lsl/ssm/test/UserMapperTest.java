@@ -31,6 +31,7 @@ public class UserMapperTest {
 		System.out.println("test running...");
 	}
 	
+	
 	@Test
 	public void testGetUserList_choose() {
 		logger.debug("testGetUserList_choose !===================");
@@ -197,6 +198,40 @@ public class UserMapperTest {
 						" and age: " + user.getAge() +
 						" and phone: " + user.getPhone() +
 						" and gender: " + user.getGender());
+		}
+	}
+	
+
+	@Test
+	public void testGetUserListByPaging() {
+		logger.debug("testGetUserListByPaging !===================");
+		SqlSession sqlSession = null;
+		List<User> userList = new ArrayList<User>();
+		try {
+			sqlSession = MyBatisUtils.createSqlSession();
+			String userName = "";
+			Integer roleId = null;
+			Integer pageSize = 5;
+			Integer currentPageNo = 5;
+			userList = sqlSession.getMapper(UserMapper.class)
+			.getUserListByPaging(userName, roleId, currentPageNo, pageSize);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			MyBatisUtils.closeSqlSession(sqlSession);
+		}
+		logger.debug("userlist.size ----> " + userList.size());
+		for(User user: userList){
+			logger.debug("testGetUserList=======> id: " + user.getId() +
+						" and userCode: " + user.getUserCode() + 
+						" and userName: " + user.getUserName() + 
+						" and userRole: " + user.getUserRole() + 
+						" and userRoleName: " + user.getUserRoleName() +
+						" and age: " + user.getAge() +
+						" and phone: " + user.getPhone() +
+						" and gender: " + user.getGender()+
+						" and creationDate: " + new SimpleDateFormat("yyyy-MM-dd").format(user.getCreationDate()));
 		}
 	}
 }
