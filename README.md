@@ -138,7 +138,7 @@
 	</foreach>
 </select>
 ```
-7、 动态条件查找数据-foreach-map
+8、 动态条件查找数据-foreach-map
 ```
 <!-- 根据用户角色列表，获取该角色列表下用户列表信息-foreach_map -->	
 <select id="getUserByRoleId_foreach_map" resultMap="userMapByRole">
@@ -156,7 +156,31 @@
 	</foreach>
 </select>
 ```
-
+9、 动态条件查找数据-trim-choose
+```
+<!-- 查询用户列表(choose) -->
+<select id="getUserList_choose" resultType="User">
+	select * from smbms_user
+	<trim prefix="where" prefixOverrides="and|or">
+		<!-- choose类似于switch，从上往下，当满足条件时break(最多连接一条语句)，如果全都不满足条件则otherwise -->
+		<choose>
+			<when test="userName != null and userName != ''">
+				and userName like CONCAT ('%',#{userName},'%')
+			</when>
+			<when test="userCode != null and userCode != ''">
+				and userCode like CONCAT ('%',#{userCode},'%')
+			</when>
+			<when test="userRole != null">
+				and userRole = #{userRole}
+			</when>
+			<otherwise>
+				<!-- and YEAR(creationDate = YEAR(NOW()) -->
+				and YEAR(creationDate) = YEAR(#{creationDate})
+			</otherwise>
+		</choose>
+	</trim>		
+</select>
+```
    
    
     

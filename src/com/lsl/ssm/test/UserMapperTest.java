@@ -32,6 +32,34 @@ public class UserMapperTest {
 	}
 	
 	@Test
+	public void testGetUserList_choose() {
+		logger.debug("testGetUserList_choose !===================");
+		SqlSession sqlSession = null;
+		List<User> userList = new ArrayList<User>();
+		try {
+			sqlSession = MyBatisUtils.createSqlSession();
+			String userName = "";
+			Integer roleId = 1;
+			String userCode = "a";
+			Date creationDate = new SimpleDateFormat("yyyy-MM-dd").parse("2018-01-01");
+			userList = sqlSession.getMapper(UserMapper.class).getUserList_choose(userName, userCode, roleId, creationDate);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally{
+			MyBatisUtils.closeSqlSession(sqlSession);
+		}
+		logger.debug("userlist.size ----> " + userList.size());
+		for(User user: userList){
+			logger.debug("testGetUserList_choose=======> id: " + user.getId() +
+						" and userCode: " + user.getUserCode() + 
+						" and userName: " + user.getUserName() + 
+						" and userRole: " + user.getUserRole() + 
+						" and creationDate: " + new SimpleDateFormat("yyyy-MM-dd").format(user.getCreationDate()));
+		}
+	}
+	
+	@Test
 	public void testGetUserByRoleId_foreach_map() {
 		logger.debug("testGetUserByRoleId_foreach_map !===================");
 		SqlSession sqlSession = null;
