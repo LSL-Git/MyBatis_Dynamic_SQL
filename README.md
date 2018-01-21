@@ -59,9 +59,29 @@
 	where id=#{id}
 </update>
 ```
+4、 动态条件查找数据-if-trim-prefix-prefixOverrides
+```
+<!-- 查询用户列表 动态条件查询-if-trim-prefix-prefixOverrides -->
+<select id="getUserList" resultMap="userList">
+	select * from smbms_user
+	<trim prefix="where" prefixOverrides="and|or">
+		<!-- 
+			如果满足条件，下面的语句会连接到上面的语句，trim会将第一个连上来的语句的and或or替换成where
+			prefix:前缀  prefixOverrides：被替换的词，用 ’|‘分隔，不能有空格（我的测试是这样）
+		 -->
+		<if test="userName != null and userName != ''">
+			and userName like CONCAT ('%',#{userName},'%')
+		</if>
+		<if test="userRole != null">
+			and userRole = #{userRole}
+		</if>
+	</trim>
+</select>
+```
+
    
 
-@Author 瞌睡虫   
+@Author: 瞌睡虫   
 @mybatis-3.2.2   
 @Database: mysql 5.7.15   
 @Tool: MyEclipse

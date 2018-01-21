@@ -72,8 +72,8 @@ public class UserMapperTest {
 		try {
 			sqlSession = MyBatisUtils.createSqlSession();
 			String userName = "赵";
-//			Integer roleId = 3;
-			Integer roleId = null;
+			Integer roleId = 3;
+//			Integer roleId = null;
 			userList = sqlSession.getMapper(UserMapper.class).getUserList(userName, roleId);
 		} catch (Exception e) {
 			// TODO: handle exception
