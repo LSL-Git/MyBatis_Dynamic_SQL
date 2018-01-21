@@ -1,6 +1,8 @@
 package com.lsl.ssm.test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,6 +27,42 @@ public class UserMapperTest {
 	@Test
 	public void test() {
 		System.out.println("test running...");
+	}
+	
+	@Test
+	public void testModify(){
+		logger.debug("testModify !===================");
+		SqlSession sqlSession = null;
+		int count = 0;
+		try {
+			User user = new User();
+			user.setId(19);
+			user.setUserCode("testmodify");
+			user.setUserName("测试用户修改02");
+			user.setUserPassword("1234567");
+			Date birthday = new SimpleDateFormat("yyyy-MM-dd").parse("1980-10-10");
+			user.setBirthday(birthday);
+			user.setCreationDate(new Date());
+			user.setAddress("地址测试修改");
+			user.setGender(2);
+			user.setPhone("13600002222");
+			user.setUserRole(2);
+			user.setModifyBy(1);
+			user.setModifyDate(new Date());
+			sqlSession = MyBatisUtils.createSqlSession();
+			count = sqlSession.getMapper(UserMapper.class).modify(user);
+			//模拟异常，进行回滚
+			//int i = 2/0;
+			sqlSession.commit();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			sqlSession.rollback();
+			count = 0;
+		}finally{
+			MyBatisUtils.closeSqlSession(sqlSession);
+		}
+		logger.debug("testModify count: " + count);
 	}
 	
 	@Test

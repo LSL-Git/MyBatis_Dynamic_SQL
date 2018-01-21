@@ -5,6 +5,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.lsl.ssm.dao.user.UserMapper" >
 
+	<!-- 修改用户信息-if-set -->
+	<update id="modify" parameterType="User">
+		update smbms_user
+		<set>
+			<if test="userCode != null">userCode=#{userCode},</if>
+			<if test="userName != null">userName=#{userName},</if>
+			<if test="userPassword != null">userPassword=#{userPassword},</if>
+			<if test="gender != null">gender=#{gender},</if>
+			<if test="birthday != null">birthday=#{birthday},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="address != null">address=#{address},</if>
+			<if test="userRole != null">userRole=#{userRole},</if>
+			<if test="modifyBy != null">modifyBy=#{modifyBy},</if>
+			<if test="modifyDate != null">modifyDate=#{modifyDate}</if>
+		</set>
+		where id=#{id}
+	</update>
+
 	<!-- 当数据库中的字段信息与对象的属性不一致时需要通过resultMap来映射 -->
 	<resultMap type="User" id="userList">
 		<result property="id" column="id" />

@@ -39,4 +39,29 @@
 	</where>
 </select>
 ```
+3、 动态条件更新数据-if-set
+```
+<!-- 修改用户信息-if-set -->
+<update id="modify" parameterType="User">
+	update smbms_user
+	<set>
+		<if test="userCode != null">userCode=#{userCode},</if>
+		<if test="userName != null">userName=#{userName},</if>
+		<if test="userPassword != null">userPassword=#{userPassword},</if>
+		<if test="gender != null">gender=#{gender},</if>
+		<if test="birthday != null">birthday=#{birthday},</if>
+		<if test="phone != null">phone=#{phone},</if>
+		<if test="address != null">address=#{address},</if>
+		<if test="userRole != null">userRole=#{userRole},</if>
+		<if test="modifyBy != null">modifyBy=#{modifyBy},</if>
+		<if test="modifyDate != null">modifyDate=#{modifyDate}</if>
+	</set>
+	where id=#{id}
+</update>
+```
+   
 
+@Author 瞌睡虫   
+@mybatis-3.2.2   
+@Database: mysql 5.7.15   
+@Tool: MyEclipse
