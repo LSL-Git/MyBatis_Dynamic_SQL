@@ -8,6 +8,12 @@ import com.lsl.ssm.pojo.User;
 
 public interface UserMapper {
 	
+	/**
+	 * 根据用户角色列表，获取该角色列表下用户列表信息-foreach_list
+	 * @param roleIds
+	 * @return
+	 */
+	public List<User> getUserByRoleId_foreach_list(List<Integer> roleIdList);
 	
 	/**
 	 * 根据用户角色列表，获取该角色列表下用户列表信息-foreach_array

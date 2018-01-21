@@ -120,6 +120,24 @@
 	</foreach>
 </select>
 ```
+7、 动态条件查找数据-foreach-list
+```
+<!-- 根据用户角色列表，获取该角色列表下用户列表信息-foreach_list -->	
+<select id="getUserByRoleId_foreach_list" resultMap="userMapByRole">
+	select * from smbms_user where userRole in
+	<!-- 
+		foreach：迭代一个集合，通常用于in查询
+		collection：array|list|map-key（必须指定）
+		item:迭代子项，与#{roleIds}对应，
+		open：句子组合开始符
+		separator：句子组合分隔符
+		close：句子组合结束符
+	 -->
+	<foreach collection="list" item="roleIdList" open="(" separator="," close=")">
+		#{roleIdList}
+	</foreach>
+</select>
+```
 
    
    
