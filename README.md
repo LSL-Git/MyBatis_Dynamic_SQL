@@ -1,6 +1,6 @@
 # MyBatis_Dynamic_SQL
 
-**SSM 框架学习**
+**SSM 框架学习 (MyBatis篇)**
 
 二、MyBatis  动态SQL使用  
    
