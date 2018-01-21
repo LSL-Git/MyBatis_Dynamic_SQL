@@ -3,7 +3,9 @@ package com.lsl.ssm.test;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
@@ -27,6 +29,33 @@ public class UserMapperTest {
 	@Test
 	public void test() {
 		System.out.println("test running...");
+	}
+	
+	@Test
+	public void testGetUserByRoleId_foreach_map() {
+		logger.debug("testGetUserByRoleId_foreach_map !===================");
+		SqlSession sqlSession = null;
+		List<User> userList = new ArrayList<User>();
+		List<Integer> roleIdList = new ArrayList<Integer>();
+		roleIdList.add(2);
+		roleIdList.add(3);
+		Map<String, Object> roleMap = new HashMap<String, Object>();
+		roleMap.put("mKey", roleIdList);
+		try {
+			sqlSession = MyBatisUtils.createSqlSession();
+			userList = sqlSession.getMapper(UserMapper.class).getUserByRoleId_foreach_map(roleMap);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			MyBatisUtils.closeSqlSession(sqlSession);
+		}
+		logger.debug("userList.size ----> " + userList.size());
+		for(User user : userList){
+			logger.debug("user ===========> id: " + user.getId()+
+						", userCode: " + user.getUserCode() + 
+						", userName: " + user.getUserName() +
+						", userRole: " + user.getUserRole());
+		}
 	}
 	
 	@Test
